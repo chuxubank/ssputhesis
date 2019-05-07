@@ -61,9 +61,40 @@ GTD \footnote{Get Things Done} 是由 David Allen 提出的对任务管理的一
 	\item 精力管理
 	
 	通过研究 Jim Loehr 的精力管理理念，确定精力管理的方式。
-	\item 自然语言处理
+	% \item 自然语言处理
 	
-	主要通过Apple提供的Core ML2机器学习框架进行自然语言处理，使用户添加任务更为快捷。
+	% 主要通过Apple提供的Core ML2机器学习框架进行自然语言处理，使用户添加任务更为快捷。
 \end{itemize}
 
 本课题的目标就是通过对以上内容的研究，开发一款帮助用户更方便的进行任务计划和时间管理的iOS端应用软件。
+
+\section{开发环境简介}
+
+\subsection{硬件开发环境}
+
+\begin{enumerate}
+	\item 处理器：Intel(R) Core(TM) i7-6700HQ
+	\item 内存：8.0 GB
+	\item 硬盘：256G SSD
+	\item 显示：1920 $\times$ 1080 分辨率
+\end{enumerate}
+
+\subsection{软件开发环境}
+
+\begin{enumerate}
+	\item 操作系统：macOS Mojave 10.14.4
+	\item 数据库系统：Core Data
+	\item 开发语言：Swift 5
+	\item 开发工具：Xcode 10.2.1
+\end{enumerate}
+
+\section{相关技术简介}
+\subsection{Swift}
+Swift 编程语言是 Apple 在 2014 年 WWDC \footnote{苹果公司的开发者大会} 上发布的新开发语言，可与 Objective-C 共同运行于 macOS 和 iOS 平台
+，用于搭建基于苹果平台的应用程序，并于2015年12月4日开源。
+\subsection{Core Data}
+Core Data 是 Apple 开发的 Cocoa API 中的一部分，首次在iOS 3.0 时出现，
+它允许按照实体-属性-值模型组织数据，并以XML，二进制文件或SQLite数据文件的格式将其序列化。
+Core Data允许用户使用代表实体和实体间关系的高层对象来操作数据。
+它也可以管理序列化的数据，提供对象生存期管理与对象图管理，包括存储。
+Core Data直接与SQLite交互，从而避免开发者使用原本的SQL语句。
