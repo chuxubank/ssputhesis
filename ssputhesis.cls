@@ -627,13 +627,6 @@
     {\zihao{-2}\MakeUppercase{Thesis of \sspu@value@englishdegree}}
     \vskip 15pt
     \includegraphics{sspubadge}
-    \vskip \stretch{2}
-    {
-      \zihao{2}
-      \begin{tabular}{r@{：}l}
-        \sspu@label@title & {\zihao{-2}\parbox[t]{320pt}{\sspu@value@chinesecovertitle}}
-      \end{tabular}
-    }
     \vskip \stretch{1}
     {
       \zihao{3}
@@ -643,6 +636,7 @@
           \sspu@label@author        &  \\ \cline{2-2}
           \sspu@label@studentnumber & \makebox[180pt]{} \\ \cline{2-2}
         \else
+          \sspu@label@title 		& \parbox[t]{180pt}{\sspu@value@chinesecovertitle} \\
           \sspu@label@author        & \sspu@value@author \\ \cline{2-2}
           \sspu@label@studentnumber & \makebox[180pt]{\sspu@value@studentnumber} \\ \cline{2-2}
         \fi
