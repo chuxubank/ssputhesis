@@ -1,0 +1,75 @@
+%# -*- coding: utf-8-unix -*-
+% !TEX program = xelatex
+% !TEX root = ../thesis.tex
+% !TEX encoding = UTF-8 Unicode
+\chapter{需求分析}
+在确认了系统基本可行之后，具体的系统设计和开发之前首要工作便是进行需求分析，
+该阶段通过对用户的需求进行分析，识别和确认系统中的功能点，和所需达到的目标，
+总结归纳得出系统的功能性和非功能性需求。
+\section{功能性需求}
+通过生活实际经验和网上对学生和白领群体对调查研究，总结的需求如下：
+\begin{itemize}
+	\item 自由添加、删除和修改任务信息
+	\item 添加、删除和修改项目信息，并可以将任务添加入项目进行分类
+	\item 同一项目中的任务可以选择依赖关系
+	\item 一个需要多次完成的任务可以进行拆分，每次只完成其的一部分
+	\item 通过任务预估时间计算空闲时间，并在适当位置给予提醒
+	\item 通过任务的依赖关系计算合适的任务完成顺序，确保项目顺利推进
+	\item 完成任务时记录当前任务完成时间和精力状态
+	\item 根据以往的精力状态分配任务，并以图标的方式呈现
+\end{itemize}
+
+~\\
+根据以上需求，总结如下UML图。
+~\\
+
+\begin{figure}[!htp]
+	\centering
+	\makebox[\textwidth]{\includegraphics[width=\textwidth]{figure/uml/use_case.png}}
+	\caption{任务计划及时间管理系统总用例图}
+    \label{fig:use_case}
+\end{figure}
+
+图\ref{fig:use_case}基本包含了本系统的所有用例，
+其中行为管理是根据需求分析得到的用于记录任务完成情况和精力分配的工具。
+
+\begin{figure}[!htp]
+	\centering
+	\makebox[\textwidth]{\includegraphics[height=12cm]{figure/uml/activity.png}}
+	\caption{用户选择完成任务的活动图}
+    \label{fig:activity}
+\end{figure}
+
+\section{其他需求}
+\subsection{用户界面}
+本系统的用户界面采用统一的GUI界面，并保持与iOS 系统应用风格的一致性，
+其中出现的所有错误信息和提示信息均采用与系统风格统一的标准提示框。
+
+\subsection{通讯接口}
+\begin{itemize}
+	\item 预留与Apple 服务器通讯并进行同步的iCloud 服务接口。
+	\item 日常使用中可以不依赖网络使用，确保随时可用。
+	\item 与其他日程管理类的软件通用接口：如系统日历，iCal通用日历信息文件。
+	\item 与其他即时通讯类软件的交互接口：如文字信息入口等。
+\end{itemize}
+
+\subsection{性能需求}
+\begin{itemize}
+	\item 客户端一般响应时间不超过0.1秒。
+	\item 任务统计时间不超过0.5秒。
+\end{itemize}
+
+\subsection{安全性需求}
+\begin{itemize}
+	\item 数据备份：允许用户进行数据的备份和恢复，以弥补数据的破坏和丢失。
+	\item 加密：可以设置需要指纹或密码进入系统。
+\end{itemize}
+
+\subsection{可用性需求}
+\begin{itemize}
+	\item 控制必录入项：本系统能够对必须录入的内容进行控制，
+	确保信息录入的完整。同时对必录入项进行有效的统一的提示，如使保存按钮不可用等。
+	\item 容错能力：系统具有一定的容错和抗干扰能力，在非硬件故障或非通讯故障时，
+	系统能够保证正常运行，并有足够的提示信息帮助用户有效正确地完成任务。
+	\item 对于删除等具有破坏性的操作，提供撤销操作或予以提示。
+\end{itemize}
