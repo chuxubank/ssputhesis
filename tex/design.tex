@@ -53,7 +53,8 @@ Core Data 是Apple提供的持久化数据的方案，一般来说，底层使�
 
 \subsection{系统数据表}
 由于Core Data会通过数据表之间的概念数据模型和他们之间的关系生成相应的物理模型（包括ID和主外建等），
-无需开发者具体生成的物理模型。
+无需开发者生成具体的物理模型。
+图\ref{fig:e-r}中出现的事件和日历均为iOS系统自带的实体，也无需保存入Core Data 数据库中。
 
 \begin{figure}[H]
 	\centering

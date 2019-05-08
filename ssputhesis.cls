@@ -65,9 +65,12 @@
 \newcommand\school[1]{\def\sspu@value@school{#1}}
 \newcommand\chinesedegree[1]{\def\sspu@value@chinesedegree{#1}}
 \renewcommand\title[1]{%
+  \def\sspu@value@normaltitle{#1}%
   \def\sspu@value@chinesetitle{\sspu@title@handler{#1}}%
   \def\sspu@value@chinesecovertitle{\sspu@covertitle@handler{#1}}}
 \renewcommand\author[1]{\def\sspu@value@author{#1}}
+\newcommand\class[1]{\def\sspu@value@class{#1}}
+\newcommand\entrancetime[1]{\def\sspu@value@entrancetime{#1}}
 \newcommand\advisor[1]{\def\sspu@value@advisor{#1}}
 \newcommand\coadvisor[1]{\def\sspu@value@coadvisor{#1}}
 \newcommand\major[1]{\def\sspu@value@major{#1}}
@@ -170,7 +173,7 @@
 \setcounter{secnumdepth}{4}  % 章节编号深度 (part 对应 -1)
 \setcounter{tocdepth}{2}     % 目录深度 (part 对应 -1)
 \renewcommand{\cftchapfont}{\bfseries\heiti}  % 目录章节标题（黑体加粗）
-
+\CTEXsetup[name={},number={\arabic{chapter}}]{chapter}  % 章节编号改为数字
 % User defined command list
 %% \me \mi \mj \dif \cleardoublepage \cndash \CJKLaTeX
 
@@ -466,6 +469,8 @@
   }
 \ExplSyntaxOff
 
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
 % “绘制”硕士论文模板中文标题页
 \newcommand\makechinesetitle@master{%
   \cleardoublepage
@@ -615,42 +620,47 @@
 
 % “绘制”学士论文中文标题页
 \newcommand\makechinesetitle@bachelor{%
-  \cleardoublepage
+%   \cleardoublepage
   \thispagestyle{empty}
   \begin{center}
-    \kaishu
-    \vspace*{20pt} \vskip 7pt
+	\kaishu
     \includegraphics{sspulogo}
-    \vskip 30pt
-    {\fontsize{32}{32}\sspu@value@chinesedegree\sspu@label@thesis}
+	\vskip 15pt
+	\bfseries
+	\heiti
+	\zihao{-0}
+	\sspu@value@chinesedegree\sspu@label@thesis
     \vskip 15pt
-    {\zihao{-2}\MakeUppercase{Thesis of \sspu@value@englishdegree}}
-    \vskip 15pt
-    \includegraphics{sspubadge}
+	\includegraphics{sspubadge}
     \vskip \stretch{1}
     {
-      \zihao{3}
+	  \songti
+      \zihao{2}
       \def\arraystretch{1.1}
-      \begin{tabular}{>{\begin{CJKfilltwosides}{4\ccwd}}r<{\end{CJKfilltwosides}}@{：}c}
+      \begin{tabular}{>{\begin{CJKfilltwosides}{4\ccwd}}r<{\end{CJKfilltwosides}}@{：}>{\centering\arraybackslash}p{8cm}}
         \ifsspu@review
           \sspu@label@author        &  \\ \cline{2-2}
           \sspu@label@studentnumber & \makebox[180pt]{} \\ \cline{2-2}
         \else
-          \sspu@label@title 		& \parbox[t]{180pt}{\sspu@value@chinesecovertitle} \\
-          \sspu@label@author        & \sspu@value@author \\ \cline{2-2}
+          \sspu@label@title 		& \sspu@value@normaltitle \\ \cline{2-2}
           \sspu@label@studentnumber & \makebox[180pt]{\sspu@value@studentnumber} \\ \cline{2-2}
+		  \sspu@label@author        & \sspu@value@author \\ \cline{2-2}
+		  \sspu@label@class			& \sspu@value@class \\ \cline{2-2}
         \fi
           \sspu@label@major         & \sspu@value@major \\ \cline{2-2}
-        \ifsspu@review
+        
+		\sspu@label@institute     	& \sspu@value@institute \\ \cline{2-2}
+		\sspu@label@entrancetime	& \sspu@value@entrancetime \\ \cline{2-2}
+		\ifsspu@review
           \sspu@label@advisor       &  \\ \cline{2-2}
         \else
           \sspu@label@advisor       & \sspu@value@advisor \\ \cline{2-2}
-        \fi
-        \sspu@label@institute     & \sspu@value@institute \\ \cline{2-2}
+		\fi
+		\sspu@label@defenddate		& \sspu@value@defenddate
       \end{tabular}
     }
   \end{center}
-  \cleardoublepage
+  \clearpage
 }
 
 % “绘制”课程论文标题页
@@ -690,21 +700,21 @@
 
 % 原创性声明
 \newcommand\makeDeclareOriginal{%
-  \cleardoublepage
+%   \cleardoublepage
   \thispagestyle{empty}
   \begin{center}
     ~\\[70pt]
     % \linespread{1.5}
-    {\zihao{-2}\heiti \textbf{\sspu@value@school}} \\[12pt]
+    % {\zihao{-2}\heiti \textbf{\sspu@value@school}} \\[12pt]
     {\zihao{-2}\heiti \textbf{\sspu@label@original}} \\[12pt]
   \end{center}
   \vskip 10pt
-  {\par\linespread{2}\zihao{4}本人郑重声明：所呈交的学位论文《\sspu@value@chinesetitle》，\sspu@label@originalcontent\par}
+  {\par\linespread{2}\zihao{4}\sspu@label@originalcontent\par}
   \vskip 80pt
   {\zihao{4}\hspace{13em}\sspu@label@authorsign\hrulefill\hspace{1.5em}}
   \vskip 40pt
   {\zihao{4}\hspace{11em}\sspu@label@originalDate\hspace{1em}}
-  \cleardoublepage
+%   \cleardoublepage
 }
 
 % 授权声明
@@ -739,7 +749,7 @@
 \AtBeginDocument{\pagenumbering{Alph}}
 
 \ifsspu@coursepaper
-  %% 本科学位论文页眉页脚设置
+  %% 本科课程论文页眉页脚设置
   %% 前言页眉页脚
   \fancypagestyle{front}{%
     \fancyhf{}
@@ -762,17 +772,16 @@
     %% 前言页眉页脚
     \fancypagestyle{front}{%
       \fancyhf{}
-      \fancyhead[L]{\includegraphics{figure/sspubanner}}
-      \fancyhead[R]{\parbox[b]{\markboxwidth}{\raggedleft\nouppercase{\sspu@fancyhead\sspu@value@titlemark}}}
-      \fancyfoot[C]{\sspu@fancyfoot{\thepage}{\lastpageref{pagesLTS.Roman}}}
+      \fancyhead[CE]{\includegraphics{figure/sspubanner}}
+      \fancyhead[CO]{\sspu@fancyhead\sspu@value@titlemark}
       \renewcommand{\headheight}{32pt}
     }
     %% 正文页眉页脚
     \fancypagestyle{main}{%
       \fancyhf{}
-      \fancyhead[L]{\includegraphics{figure/sspubanner}}
-      \fancyhead[R]{\parbox[b]{\markboxwidth}{\raggedleft\nouppercase{\sspu@fancyhead\sspu@value@titlemark}}}
-      \fancyfoot[C]{\sspu@fancyfoot{\thepage}{\lastpageref{pagesLTS.arabic}}}
+      \fancyhead[CE]{\includegraphics{figure/sspubanner}}
+      \fancyhead[CO]{\sspu@fancyhead\sspu@value@titlemark}
+      \fancyfoot[C]{\small ---~{\bfseries\thepage}~---}
       \renewcommand{\headheight}{32pt}
     }
     %% 英文大摘要
@@ -854,7 +863,7 @@
   \zihao{4} \markboth{\sspu@label@chineseabstract}{}
 }{
   \vspace{2ex}\noindent
-  {\zihao{4} \textbf{\sspu@label@keywords}{\sspu@value@keywords}}
+  {\zihao{4} \heiti\textbf{\sspu@label@keywords}{\songti\sspu@value@keywords}}
 }
 \newenvironment{englishabstract}{%
   \cleardoublepage
