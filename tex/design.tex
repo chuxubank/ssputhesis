@@ -7,17 +7,19 @@
 主要完成对系统的结构设计、系统模块设计与数据库表结构设计。
 \section{系统框架结构设计}
 本系统为满足不依赖网络、随时可用和安全性的特点，采用单用户体系结构，
-但在此基础上预留了系统接口，保证后续的可拓展性。
+本框架是我在iOS已有框架（Core Data和Event Kit）
+的基础上融合而来，这两个框架都和Apple的服务紧密结合，方便今后对其进行扩展。
+基本框架结构如图\ref{fig:level}所示。
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=8cm]{figure/level.png}}
 	\caption{系统框架结构示意图}
     \label{fig:level}
 \end{figure}
 
-Core Data 是Apple提供的持久化数据的方案，一般来说，底层使用的是 Sqlite 数据库，如下图所示。
-\begin{figure}[H]
+Core Data 是Apple提供的持久化数据的方案，一般来说，底层使用的是 Sqlite 数据库，如图\ref{fig:core_data}所示。
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=6cm]{figure/core_data.png}}
 	\caption{Core Data 结构示意图}
@@ -25,8 +27,8 @@ Core Data 是Apple提供的持久化数据的方案，一般来说，底层使�
 \end{figure}
 
 \section{系统模块设计}
-为保证系统的可拓展性和开发的便利，将系统分解为几个主要模块，如下图。
-\begin{figure}[H]
+为保证系统的可拓展性和开发的便利，将系统分解为几个主要模块，如图\ref{fig:part}。
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=\textwidth]{figure/part.png}}
 	\caption{系统模块结构图}
@@ -43,24 +45,25 @@ Core Data 是Apple提供的持久化数据的方案，一般来说，底层使�
 \section{数据库设计}
 
 \subsection{系统实体关系图}
-\begin{figure}[H]
+由于Core Data会通过数据表之间的概念数据模型和他们之间的关系生成相应的物理模型（包括ID和主外建等），
+无需开发者生成具体的物理模型。
+图\ref{fig:e-r}中出现的事件和日历均为iOS系统自带的实体，也无需保存入Core Data 数据库中。
+Core Data中的数据实体如图\ref{fig:core-data}所示。
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=\textwidth]{figure/e-r.png}}
 	\caption{实体关系图}
     \label{fig:e-r}
 \end{figure}
 
-
-\subsection{系统数据表}
-由于Core Data会通过数据表之间的概念数据模型和他们之间的关系生成相应的物理模型（包括ID和主外建等），
-无需开发者生成具体的物理模型。
-图\ref{fig:e-r}中出现的事件和日历均为iOS系统自带的实体，也无需保存入Core Data 数据库中。
-
-\begin{figure}[H]
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=\textwidth]{figure/relationship.png}}
 	\caption{Core Data 数据实体及关系图}
+	\label{fig:core-data}
 \end{figure}
+
+\subsection{系统数据表}
 
 \begin{table}[H]
   \centering

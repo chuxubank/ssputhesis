@@ -11,7 +11,7 @@
 
 \section{系统的实现环境}
 本系统开发采用的IDE为 Xcode，数据库为Core Data，主要开发语言为 Swift。
-由于本系统采用的Swift版本为Swift 5 故需要iOS 8.0以上的操作系统才可以使用，
+由于本系统采用的Swift版本为Swift 5 故需要iOS 8.0以上的操作系统才可以使用， \parencite{wals2018mastering}
 考虑到iOS新版本的普及率，是可以接受的。
 
 \section{系统模块的实现}
@@ -24,7 +24,8 @@
 以实现系统自身基于iCloud的同步。在初次进入主界面时，请求对系统日历的读写权限，
 若已经授权则在后台读取今天的日程并进行展示，不影响主线程的操作，同时提供添加日程和编辑日程的功能。
 
-由于用户可能随时关闭对该应用对日历的访问权限，故每次都需要对日历权限进行检查，若没有授权则进行请求。
+由于用户可能随时关闭对该应用对日历的访问权限，故每次都需要对日历权限进行检查，若没有授权则进行请求，
+如图\ref{fig:new_event_no_access}和\ref{fig:new_event}所示。
 具体代码和效果图如下。
 
 \begin{lstlisting}[language={Swift}, caption={请求日历权限代码逻辑}]
@@ -43,24 +44,24 @@
 		store.requestAccess(to: EKEntityType.event, completion: {
 			(accessGranted: Bool, error: Error?) in
 			if accessGranted == true {
-				DispatchQueue.main.async(execute: {
-					// ...
-				})
+				...
 			}
 		})
 	}
 \end{lstlisting}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/new_event+no_access}}
 	\caption{未获取日历权限创建新事件截图}
+	\label{fig:new_event_no_access}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/new_event}}
 	\caption{已获取日历权限创建新事件截图}
+	\label{fig:new_event}
 \end{figure}
 
 \subsection{任务管理模块}
@@ -82,11 +83,9 @@
             break
         }
     }
-    
     func requestAccessToReminder() {
         store.requestAccess(to: EKEntityType.reminder, completion: {
             (accessGranted: Bool, error: Error?) in
-            
             if accessGranted == true {
                 DispatchQueue.main.async(execute: {
                     self.loadReminders()
@@ -95,7 +94,6 @@
             }
         })
     }
-    
     func loadReminders() {
         let predicate: NSPredicate? = store.predicateForReminders(in: [store.defaultCalendarForNewReminders()!])
         if let aPredicate = predicate {
@@ -121,16 +119,17 @@
     }
 \end{lstlisting}
 
-这项功能只会导入系统提醒事项中未完成的任务，避免数据过多导致缺失重点。
+如图\ref{fig:inbox_no_split}所示，这项功能只会导入系统提醒事项中未完成的任务，避免数据过多导致缺失重点。
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/inbox+no_split}}
 	\caption{从系统提醒事项中拉取任务截图}
+	\label{fig:inbox_no_split}
 \end{figure}
 
 对于任务是否完成，通过任务TableViewCell中左侧的图标来进行提示，并可以通过点击图标将任务标记为已完成，
-根据MVC设计的原则由于TableViewCell本身并不了解任务的相关属性，自然也无从得知用户点击了哪一个任务的完成图标，
+根据MVC设计的原则由于TableViewCell本身并不了解任务的相关属性，自然也无从得知用户点击了哪一个任务的完成图标\parencite{ios2017program}，
 故需要通过代理告知TableViewController，由后者完成任务完成的相关操作。
 
 \begin{lstlisting}[language={Swift}, caption={TaskTableViewCell}]
@@ -205,12 +204,14 @@
 \end{lstlisting}
 
 本系统的主要功能在于对任务进行详尽的设置，并通过相关的设置，对用户的任务完成情况，行为等进行跟踪和分析。
-为了方便用户的设置，本系统尽可能的减少了用户的输入操作，改用DatePicker等便于输入的方式进行添加任务。
+为了方便用户的设置，本系统尽可能的减少了用户的输入操作，改用DatePicker等便于输入的方式进行添加任务
+如图\ref{fig:add_task_duedate}所示。
 
 \begin{figure}[H]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/add_task+duedate}}
 	\caption{使用DatePicker添加到期日期}
+	\label{fig:add_task_duedate}
 \end{figure}
 
 对于多个日期和表单的情况，通过代码动态控制TableView的行高来实现不同DatePicker的切换，代码如下。
@@ -298,7 +299,7 @@
 \subsection{项目管理模块}
 项目管理的一个重要功能是能够选择项目中任务之间的依赖，
 实现这一需求的解决方案是通过建立数据库中任务表到自身的关系。
-并通过算法计算任务的所有依赖和所有后续，从而避免用户在选择依赖任务或后续任务时形成依赖环路。
+并通过算法计算任务的所有依赖和所有后续，从而避免用户在选择依赖任务或后续任务时形成依赖环路\parencite{cormen2009introduction}。 
 
 \begin{lstlisting}[language={Swift}, caption={计算任务依赖关系的代码}]
 	extension Task {
@@ -338,13 +339,14 @@ extension 是Swift中的一个语言特性，可以在不接触类源代码的�
 由于本系统直接使用Core Data根据数据库的属性和表以及实体间的关系自动生成相关的类，且在Xcode中
 默认并不可见，故使用extension 是比较方便和合适的做法。
 
-\begin{figure}[H]
+为了实现代码和视图的重用，采用标示信息区别用户选择的任务性质，如图\ref{fig:select_prerequisites_tasks}。
+
+\begin{figure}[!hbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/select_prerequisites_tasks}}
 	\caption{选择依赖任务}
+	\label{fig:select_prerequisites_tasks}
 \end{figure}
-
-为了实现代码和视图的重用，采用标示信息区别用户选择的任务性质。
 
 \begin{lstlisting}[language={Swift}, caption={选择任务界面的代码}]
 class SelectTaskTableViewController: UITableViewController {
@@ -379,167 +381,71 @@ class SelectTaskTableViewController: UITableViewController {
 \end{lstlisting}
 
 \subsection{精力管理模块}
-\begin{figure}[H]
+本模块采用第三方库 AAChartView 效果如图\ref{fig:energy}所示。
+
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/energy}}
 	\caption{查看精力极地图}
+	\label{fig:energy}
 \end{figure}
-本模块采用第三方库 AAChartView 相关代码如下。
+
+% \begin{lstlisting}[language={Swift}, caption={绘制极地图的代码}]
+% var aaChartModel = AAChartModel()
+% 	.chartType(chartType!)//图形类型
+% 	.polar(true)
+% 	.title("")
+% 	.dataLabelEnabled(false)//是否显示数字
+% 	.animationType(.bounce)//图形渲染动画类型为"bounce"
+
+% var chartModelData = [[String : Any]]()
+
+% var taskSet = Set<Task>()
+% for action in actions {
+% 	taskSet.insert(action.task!)
+% }
+
+% for task in taskSet {
+% 	var data = Array(repeating: 0, count: 24*60/5)
+% 	let actions = task.actions as? Set<Action>
+% 	let calendar = Calendar.current
+% 	for action in actions! {
+% 		let dateComponents = calendar.dateComponents(in: calendar.timeZone, from: action.doneTime!)
+% 		let end = (dateComponents.hour! * 60 + dateComponents.minute!) / 5
+% 		let begin = end - Int(action.costMinutes/5)
+% 		for i in begin...end {
+% 			data[i] = Int(action.energyLevel)
+% 		}
+% 	}
+% 	let color = task.project?.color as? UIColor
+% 	let element = AASeriesElement()
+% 	element.name(task.title!)
+% 	element.color(color!.hexString!)
+% 	element.data(data)
+% 	chartModelData.append(element.toDic()!)
+% }
+
+% aaChartModel = aaChartModel.series(chartModelData)
+
+% aaChartView?.aa_drawChartWithChartModel(aaChartModel)
+% \end{lstlisting}
+
 通过对行为完成时间的计算，以5分钟为间隔绘制相应时间段的用户精力情况。
-
-\begin{lstlisting}[language={Swift}, caption={绘制极地图的代码}]
-var aaChartModel = AAChartModel()
-	.chartType(chartType!)//图形类型
-	.polar(true)
-	.title("")
-	.dataLabelEnabled(false)//是否显示数字
-	.animationType(.bounce)//图形渲染动画类型为"bounce"
-
-var chartModelData = [[String : Any]]()
-
-var taskSet = Set<Task>()
-for action in actions {
-	taskSet.insert(action.task!)
-}
-
-for task in taskSet {
-	var data = Array(repeating: 0, count: 24*60/5)
-	let actions = task.actions as? Set<Action>
-	let calendar = Calendar.current
-	for action in actions! {
-		let dateComponents = calendar.dateComponents(in: calendar.timeZone, from: action.doneTime!)
-		let end = (dateComponents.hour! * 60 + dateComponents.minute!) / 5
-		let begin = end - Int(action.costMinutes/5)
-		for i in begin...end {
-			data[i] = Int(action.energyLevel)
-		}
-	}
-	let color = task.project?.color as? UIColor
-	let element = AASeriesElement()
-	element.name(task.title!)
-	element.color(color!.hexString!)
-	element.data(data)
-	chartModelData.append(element.toDic()!)
-}
-
-aaChartModel = aaChartModel.series(chartModelData)
-
-aaChartView?.aa_drawChartWithChartModel(aaChartModel)
-\end{lstlisting}
-
 
 \subsection{行为管理模块}
 
 用户在完成任务时会自动添加相应的行为，对于被分割的任务，由于系统无法获知
-用户具体完成情况，故弹出添加行为的窗口供用户选择完成的行为的相关信息。
+用户具体完成情况，故弹出添加行为的窗口供用户选择完成的行为的相关信息，如图\ref{fig:add_action}。
 
-\begin{figure}[H]
+\begin{figure}[!hbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/add_action}}
 	\caption{添加行为}
+	\label{fig:add_action}
 \end{figure}
 
 \begin{lstlisting}[language={Swift}, caption={添加行为的代码}]
-	let context = AppDelegate.viewContext
-    let dateFormatter = DateFormatter()
-    
-    var action: Action? = nil
-    var task: Task? = nil
-    var doneTime = Date() {
-        didSet {
-            doneTimeLabel.text =
-                dateFormatter.string(from: doneTime)
-        }
-    }
-    var costMinutes = 0 {
-        didSet {
-            costLabel.text =
-                String(format:"%d hour %d min", costMinutes/60, costMinutes%60)
-        }
-    }
-    var energyLevel = 3 {
-        didSet {
-            energyLevelLabel.text = "\(energyLevel)"
-            energyLevelStepper.value = Double(energyLevel)
-        }
-    }
-    var doneUnitCount = 0 {
-        didSet {
-            doneUnitCountTextField.text =
-                doneUnitCount == 0 ? "" : "\(doneUnitCount)"
-            // TODO: calculate max from all actions
-            if doneUnitCount > Int(task!.splitCount) {
-                doneUnitCount = Int(task!.splitCount)
-                doneUnitCountTextField.text = "\(doneUnitCount)"
-            }
-        }
-    }
-    @IBAction func cancelTapped(_ sender: UIBarButtonItem) {
-        dismiss(animated: true, completion: nil)
-    }
-    @IBAction func doneTapped(_ sender: UIBarButtonItem) {
-        if action == nil {
-            action = Action(context: context)
-        }
-        action?.doneTime = doneTime
-        action?.costMinutes = Int32(costMinutes)
-        action?.energyLevel = Int16(energyLevel)
-        action?.doneUnitCount = Int32(doneUnitCount)
-        action?.task = task
-        try? context.save()
-        dismiss(animated: true, completion: nil)
-    }
-    @IBOutlet weak var doneButton: UIBarButtonItem!
-    @IBOutlet weak var doneTimeLabel: PickerLabel!
-    @IBOutlet weak var costLabel: PickerLabel!
-    @IBOutlet weak var energyLevelLabel: UILabel!
-    @IBOutlet weak var energyLevelStepper: UIStepper!
-    @IBAction func energySetpperValueChanged(_ sender: UIStepper) {
-        energyLevel = Int(energyLevelStepper.value)
-    }
-    @IBOutlet weak var doneUnitCountTextField: UITextField!
-    @IBAction func doneUnitCountEditingChanged(_ sender: UITextField) {
-        doneUnitCount = Int(doneUnitCountTextField.text!) ?? 0
-        updateDoneButtonState()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        updateDoneButtonState()
-        dateFormatter.dateStyle = .medium
-        dateFormatter.timeStyle = .short
-        self.title = task?.title
-        if let action = action {
-            task = action.task
-            doneTime = action.doneTime ?? Date()
-            costMinutes = Int(action.costMinutes)
-            energyLevel = Int(action.energyLevel)
-            doneUnitCount = Int(action.doneUnitCount)
-        } else {
-            doneTime = Date()
-            costMinutes = Int(task!.costMinutes)
-            energyLevel = Int(task!.energyLevel)
-            doneUnitCountTextField.placeholder = task!.splitUnit
-            doneUnitCountTextField.becomeFirstResponder()
-        }
-    }
-    
-    @objc func doneDateTimePickerValueChanged(sender: UIDatePicker) {
-        doneTime = sender.date
-    }
-    
-    @objc func costTimePickerValueChanged(sender: UIDatePicker) {
-        costMinutes = Int(sender.countDownDuration/60)
-    }
-    
-    func updateDoneButtonState() {
-        let text = doneUnitCountTextField.text ?? ""
-        doneButton.isEnabled = !text.isEmpty
-    }
-    
-    // MARK: - Table view
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
@@ -566,10 +472,11 @@ aaChartView?.aa_drawChartWithChartModel(aaChartModel)
 这一界面与iOS 的健康添加行为的界面保持一致，将键盘作为DatePicker等输入的入口，
 更符合用户的操作习惯。
 
-为了更方便的管理行为，还提供了历史记录的查看。
+为了更方便的管理行为，还提供了历史记录的查看，如图\ref{fig:history}。
 
-\begin{figure}[H]
+\begin{figure}[!htbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/history}}
 	\caption{查看历史行为记录}
+	\label{fig:history}
 \end{figure}

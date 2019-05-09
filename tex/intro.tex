@@ -17,7 +17,7 @@
 那么如何正确而有效的管理人们日常生活中的大小任务和项目，并合理分配时间，便成为了一个重大议题。
 
 \section{研究现状}
-GTD \footnote{Get Things Done} 是由 David Allen 提出的对任务管理的一个行之有效的方法，
+GTD \footnote{Get Things Done} 是由 David Allen 提出的对任务管理的一个行之有效的方法 \parencite{allen2015getting} ，
 对于一般的任务管理，可以分为以下五个步骤：
 \begin{enumerate}
 	\item 捕捉：收集所有你在意的事情
@@ -34,12 +34,12 @@ GTD \footnote{Get Things Done} 是由 David Allen 提出的对任务管理的一
 这些软件在各自的领域都表现的比较出色，但是始终缺少一个可以将任务管理和项目管理结合起来的面向个人用户的应用。
 
 \section{研究目的和意义}
-本课题旨在借助iOS端良好的生态和系统级的应用支持，将任务管理和项目管理相结合，为用户提供更为方便的任务管理系统和时间统计系统，
-同时加入精力管理，使得用户能更加清楚自己的精力状态，方便任务的安排。
+本课题旨在借助iOS端良好的生态和系统级的应用支持，将任务管理和项目管理相结合，为用户提供更为方便的任务管理系统和时间统计系统\parencite{hollemans2017ios}，
+同时加入精力管理，使得用户能更加清楚自己的精力状态，方便任务的安排\parencite{loehr2005power}。
 
 在大学的学习生活的过程中，我发现一个良好的计划和将这些计划施行的行动力是平衡好学习和生活的“捷径”，
-然而当我们在短时间内遇到很多复杂的事情和死线时难免出现不知所措的情况，
-此时比起纸笔，借助于软件更能规划好将来的事情，并在适当的时候给予提醒，监督和统计个人规划。
+然而当我们在短时间内遇到很多复杂的事情和死线时难免出现不知所措的情况\parencite{mu2015time}，
+此时比起纸笔，借助于软件更能规划好将来的事情，并在适当的时候给予提醒，监督和统计个人规划\parencite{mcgonigal2011willpower}。 
 这个软件不仅是一个工具，更是行为管理的方法。
 
 \section{研究目标和内容}
@@ -91,10 +91,10 @@ GTD \footnote{Get Things Done} 是由 David Allen 提出的对任务管理的一
 \section{相关技术简介}
 \subsection{Swift}
 Swift 编程语言是 Apple 在 2014 年 WWDC \footnote{苹果公司的开发者大会} 上发布的新开发语言，可与 Objective-C 共同运行于 macOS 和 iOS 平台
-，用于搭建基于苹果平台的应用程序，并于2015年12月4日开源。
+，用于搭建基于苹果平台的应用程序，并于2015年12月4日开源\parencite{apple2018swift}。
 \subsection{Core Data}
 Core Data 是 Apple 开发的 Cocoa API 中的一部分，首次在iOS 3.0 时出现，
 它允许按照实体-属性-值模型组织数据，并以XML，二进制文件或SQLite数据文件的格式将其序列化。
 Core Data允许用户使用代表实体和实体间关系的高层对象来操作数据。
 它也可以管理序列化的数据，提供对象生存期管理与对象图管理，包括存储。
-Core Data直接与SQLite交互，从而避免开发者使用原本的SQL语句。
+Core Data直接与SQLite交互，从而避免开发者使用原本的SQL语句\parencite{com2018core}。
