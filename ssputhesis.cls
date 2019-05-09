@@ -781,7 +781,7 @@
       \fancyhf{}
       \fancyhead[CE]{\includegraphics{figure/sspubanner}}
       \fancyhead[CO]{\sspu@fancyhead\sspu@value@titlemark}
-      \fancyfoot[C]{\small ---~{\bfseries\thepage}~---}
+      \fancyfoot[C]{\small \thepage}
       \renewcommand{\headheight}{32pt}
     }
     %% 英文大摘要
@@ -853,7 +853,7 @@
 
 % 中英文摘要+关键词
 \newenvironment{abstract}{%
-  \cleardoublepage
+%   \cleardoublepage
   \pdfbookmark[0]{\sspu@label@abstract}{abstract}
   \chapter*{%
     \sspu@value@chinesetitle
@@ -866,7 +866,7 @@
   {\zihao{4} \heiti\textbf{\sspu@label@keywords}{\songti\sspu@value@keywords}}
 }
 \newenvironment{englishabstract}{%
-  \cleardoublepage
+%   \cleardoublepage
   \chapter*{%
     \MakeUppercase\sspu@value@englishtitle
     \vskip 20pt
