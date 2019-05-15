@@ -19,10 +19,6 @@
 	\item 根据以往的精力状态分配任务，并以图标的方式呈现
 \end{itemize}
 
-~\\
-根据以上需求，总结如下UML图。
-~\\
-
 \begin{figure}[!htp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=\textwidth]{figure/uml/use_case.png}}
@@ -34,7 +30,7 @@
 其中行为管理是根据需求分析得到的用于记录任务完成情况和精力分配的工具，
 更为细致的用例描述见以下表格分析。
 
-\begin{table}[H]
+\begin{table}
 	\centering
 	\caption{用户添加任务用例描述表}
 	\begin{tabular}{l|p{8cm}} \toprule
@@ -52,7 +48,7 @@
 	\end{tabular}
 \end{table}
 
-\begin{table}[H]
+\begin{table}
 	\centering
 	\caption{用户选择任务依赖关系用例描述表}
 	\begin{tabular}{l|p{8cm}} \toprule
@@ -71,7 +67,7 @@
 	\end{tabular}
 \end{table}
 
-\begin{table}[H]
+\begin{table}
 	\centering
 	\caption{用户完成任务用例描述表}
 	\begin{tabular}{l|p{8cm}} \toprule
@@ -89,7 +85,7 @@
 	\end{tabular}
 \end{table}
 
-\begin{table}[H]
+\begin{table}
 	\centering
 	\caption{用户添加事件用例描述表}
 	\begin{tabular}{l|p{8cm}} \toprule
@@ -109,9 +105,9 @@
 
 对于用户的需求进行分析后，发现任务这一实体的粒度不够细，需要再进行细化
 也就是之前提到的行为，通过行为，我们可以更加细腻的了解用户在每个时间段的状态
-便于以后的统计和分析。
+便于以后的统计和分析，具体如图\ref{fig:activity}。
 
-\begin{figure}[H]
+\begin{figure}
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=12cm]{figure/uml/activity.png}}
 	\caption{用户选择完成任务的活动图}

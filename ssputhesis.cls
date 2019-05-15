@@ -172,7 +172,7 @@
 }
 \setcounter{secnumdepth}{4}  % 章节编号深度 (part 对应 -1)
 \setcounter{tocdepth}{2}     % 目录深度 (part 对应 -1)
-\renewcommand{\cftchapfont}{\bfseries\heiti}  % 目录章节标题（黑体加粗）
+\renewcommand{\cftchapfont}{\bfseries\zihao{4}\heiti}  % 目录章节标题（黑体加粗）
 \CTEXsetup[name={},number={\arabic{chapter}}]{chapter}  % 章节编号改为数字
 % User defined command list
 %% \me \mi \mj \dif \cleardoublepage \cndash \CJKLaTeX
@@ -220,7 +220,7 @@
 %==========
 
 %% 行距缩放因子
-\linespread{1.3}
+\linespread{1.5}
 
 %% CTeX Settings
 % 名称：目录、表格索引、插图索引、算法、算法索引、代码
@@ -623,6 +623,7 @@
 %   \cleardoublepage
   \thispagestyle{empty}
   \begin{center}
+	\linespread{1}
 	\kaishu
     \includegraphics{sspulogo}
 	\vskip 15pt
@@ -630,19 +631,20 @@
 	\heiti
 	\zihao{-0}
 	\sspu@value@chinesedegree\sspu@label@thesis
-    \vskip 15pt
+    \vskip 30pt
 	\includegraphics{sspubadge}
     \vskip \stretch{1}
     {
 	  \songti
       \zihao{2}
       \def\arraystretch{1.1}
-      \begin{tabular}{>{\begin{CJKfilltwosides}{4\ccwd}}r<{\end{CJKfilltwosides}}@{：}>{\centering\arraybackslash}p{8cm}}
+      \begin{tabular}{>{\begin{CJKfilltwosides}{5\ccwd}}r<{\end{CJKfilltwosides}}>{\centering\arraybackslash}p{9\ccwd}}
         \ifsspu@review
           \sspu@label@author        &  \\ \cline{2-2}
           \sspu@label@studentnumber & \makebox[180pt]{} \\ \cline{2-2}
         \else
-          \sspu@label@title 		& \sspu@value@normaltitle \\ \cline{2-2}
+		  \sspu@label@title 		& \multirow{2}{9\ccwd}{\sspu@value@normaltitle} \\ \cline{2-2}
+		  																		 \\ \cline{2-2}
           \sspu@label@studentnumber & \makebox[180pt]{\sspu@value@studentnumber} \\ \cline{2-2}
 		  \sspu@label@author        & \sspu@value@author \\ \cline{2-2}
 		  \sspu@label@class			& \sspu@value@class \\ \cline{2-2}
@@ -698,7 +700,7 @@
   \cleardoublepage
 }
 
-% 原创性声明
+% 独创性声明
 \newcommand\makeDeclareOriginal{%
 %   \cleardoublepage
   \thispagestyle{empty}
@@ -856,26 +858,26 @@
 %   \cleardoublepage
   \pdfbookmark[0]{\sspu@label@abstract}{abstract}
   \chapter*{%
-    \sspu@value@chinesetitle
+    \zihao{-2} \sspu@value@chinesetitle
     \vskip 20pt
-    \sspu@label@chineseabstract
+    \zihao{3} \sspu@label@chineseabstract
   }
-  \zihao{4} \markboth{\sspu@label@chineseabstract}{}
+  \zihao{-4} \markboth{\sspu@label@chineseabstract}{}
 }{
   \vspace{2ex}\noindent
-  {\zihao{4} \heiti\textbf{\sspu@label@keywords}{\songti\sspu@value@keywords}}
+  {\heiti\textbf{\sspu@label@keywords}{\songti\sspu@value@keywords}}
 }
 \newenvironment{englishabstract}{%
 %   \cleardoublepage
   \chapter*{%
-    \MakeUppercase\sspu@value@englishtitle
+    \zihao{-2} \MakeUppercase\sspu@value@englishtitle
     \vskip 20pt
-    \MakeUppercase\sspu@label@englishabstract
+    \zihao{3} \MakeUppercase\sspu@label@englishabstract
   }
-  \zihao{4} \markboth{\sspu@label@englishabstract}{}
+  \zihao{-4} \markboth{\sspu@label@englishabstract}{}
 }{
   \vspace{2ex}\noindent
-  {\zihao{4} \textbf{\sspu@label@englishkeywords}{\sspu@value@englishkeywords}}
+  {\textbf{\sspu@label@englishkeywords}{\sspu@value@englishkeywords}}
 }
 
 % 主要符号对照表

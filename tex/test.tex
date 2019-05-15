@@ -10,7 +10,7 @@
 
 \section{白盒测试}
 本系统测试用例繁多，主要对以下几个较为重要的测试用例进行列举。
-\begin{table}[H]
+\begin{table}
 	\centering
 	\caption{添加任务测试用例表}
 	\begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}} \toprule
@@ -30,7 +30,7 @@
 	\end{tabular}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[!h]
 	\centering
 	\caption{用户完成含有拆分项目的任务用例表}
 	\begin{tabular}{p{3cm}p{3cm}p{3cm}p{3cm}} \toprule
@@ -48,9 +48,10 @@
 \end{table}
 
 \section{内存泄漏测试}
-使用Xcode提供的Instruments对系统进行测试如下图所示
-\begin{figure}[H]
+使用Xcode提供的Instruments对系统进行测试如图\ref{fig:memory_test}所示
+\begin{figure}[!h]
 	\centering
 	\makebox[\textwidth]{\includegraphics[width=\textwidth]{figure/test/memory_leak}}
 	\caption{Instruments 内存泄漏测试}
+	\label{fig:memory_test}
 \end{figure}

@@ -26,7 +26,6 @@
 
 由于用户可能随时关闭对该应用对日历的访问权限，故每次都需要对日历权限进行检查，若没有授权则进行请求，
 如图\ref{fig:new_event_no_access}和\ref{fig:new_event}所示。
-具体代码和效果图如下。
 
 \begin{lstlisting}[language={Swift}, caption={请求日历权限代码逻辑}]
 	func checkEventAuthorizationStatus() {
@@ -69,8 +68,9 @@
 在Inbox（收件箱）\footnote{此处的收件箱并不是指邮件系统的收件箱，而是GTD理念中的将待办事项整合起来的地方。}
 中，用户可以通过系统自带Siri功能\footnote{目前采用的是一种曲线救国的方法，即通过EventKit访问系统自带的提醒事项来达到类似Siri直接添加的效果。}
 无需说应用名称，就可以添加新任务，这大大减少了输入带来的不便。
-具体代码如下。
-
+~\\
+~\\
+~\\
 \begin{lstlisting}[language={Swift}, caption={请求提醒事项权限并导入系统代码逻辑}]
 	func checkReminderAuthorizationStatus() {
         let status = EKEventStore.authorizationStatus(for: .reminder)
@@ -121,7 +121,7 @@
 
 如图\ref{fig:inbox_no_split}所示，这项功能只会导入系统提醒事项中未完成的任务，避免数据过多导致缺失重点。
 
-\begin{figure}[!htbp]
+\begin{figure}[!hbp]
 	\centering
 	\makebox[\textwidth]{\includegraphics[height=10cm]{figure/system/inbox+no_split}}
 	\caption{从系统提醒事项中拉取任务截图}
@@ -169,6 +169,8 @@
 	}
 \end{lstlisting}
 
+~\\
+~\\
 \begin{lstlisting}[language={Swift}, caption={TaskListTableViewController实现代理的相关代码}]
 	class TaskListTableViewController: UITableViewController, TaskCellDelegate {
 		let context = AppDelegate.viewContext
@@ -204,7 +206,7 @@
 \end{lstlisting}
 
 本系统的主要功能在于对任务进行详尽的设置，并通过相关的设置，对用户的任务完成情况，行为等进行跟踪和分析。
-为了方便用户的设置，本系统尽可能的减少了用户的输入操作，改用DatePicker等便于输入的方式进行添加任务
+为了方便用户的设置，本系统尽可能的减少了用户的输入操作，改用DatePicker等便于输入的方式进行添加任务\parencite{app2019swift}，
 如图\ref{fig:add_task_duedate}所示。
 
 \begin{figure}[H]
@@ -311,13 +313,11 @@
 				var childPrerequisites = Set<Task>()
 				for prerequisite in selfPrerequisites {
 					for task in prerequisite.getAllPrerequisites() {
-						childPrerequisites.insert(task)
-					}
+						childPrerequisites.insert(task) }
 				}
 				return childPrerequisites.union(selfPrerequisites)
 			}
 		}
-		
 		func getAllDependents() -> Set<Task> {
 			let selfDependents = self.dependents as! Set<Task>
 			if selfDependents.isEmpty {
@@ -326,8 +326,7 @@
 				var childDependents = Set<Task>()
 				for dependent in selfDependents {
 					for task in dependent.getAllPrerequisites() {
-						childDependents.insert(task)
-					}
+						childDependents.insert(task) }
 				}
 				return childDependents.union(selfDependents)
 			}

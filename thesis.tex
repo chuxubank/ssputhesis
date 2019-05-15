@@ -5,6 +5,13 @@
 %%==================================================
 
 \documentclass[bachelor, openany, twoside]{ssputhesis}
+% \documentclass[%
+%   bachelor|master|doctor|coursepaper, % 必选项，分别是学士，硕士，博士学位论文以及课程论文，目前只修改了学士论文（望有朝一日能看到母校开博士点）
+%   fontset=fandol|windows|mac|ubuntu|adobe|founder, % 字体选项
+%   oneside|twoside,        % 单面打印，双面打印(奇偶页交换页边距，默认)
+%   openany|openright,      % 可以在奇数或者偶数页开新章|只在奇数页开新章(默认)
+%   english,                % 启用英文模版
+% ]
 
 % 逐个导入参考文献数据库
 \addbibresource{bib/thesis.bib}
@@ -24,6 +31,8 @@
 % 摘要
 \include{tex/abstract}
 
+\zihao{-4}
+
 % 目录
 \tableofcontents
 
@@ -39,6 +48,7 @@
 \include{tex/test}
 \include{tex/conclusion}
 
+\normalsize
 \backmatter % 文后无编号部分
 
 \makeatletter
